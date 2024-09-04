@@ -1,34 +1,38 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
-class CustomButton extends StatelessWidget {
-  final String value;
+class Button extends StatelessWidget {
+  final dynamic value; // Pode ser String ou Image
   final Color color;
 
-  const CustomButton({Key? key, required this.value, required this.color}) : super(key: key);
+  const Button({Key? key, required this.value, required this.color})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Ação quando o botão for clicado
         print('Botão $value clicado');
       },
       child: Container(
         width: 71.75,
         height: 72.0,
         decoration: BoxDecoration(
-          color: color, // Cor de fundo recebida como parâmetro
-          borderRadius: BorderRadius.circular(24.0), // Arredondamento das bordas
+          color: color,
+          borderRadius: BorderRadius.circular(24.0),
         ),
         child: Center(
-          child: Text(
-            value,
-            style: TextStyle(
-              color: Colors.white, // Cor do texto
-              fontSize: 24.0,
-              decoration: TextDecoration.none, // Sem decoração
-            ),
-          ),
+          child: value is String
+              ? Text(
+                  value,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24.0,
+                    decoration: TextDecoration.none,
+                  ),
+                )
+              : value, // Se for uma imagem, exibe o widget diretamente
         ),
       ),
     );
