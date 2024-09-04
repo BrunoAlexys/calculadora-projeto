@@ -40,7 +40,7 @@ class _CalculadoraState extends State<Calculadora> {
         Expanded(
             flex: 1,
             child: Container(
-              color: Colors.black,
+              color: Color(0xFF17171C),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -98,7 +98,7 @@ class _CalculadoraState extends State<Calculadora> {
         Expanded(
             flex: 2,
             child: Container(
-              color: Colors.black,
+              color: Color(0xFF17171C),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
