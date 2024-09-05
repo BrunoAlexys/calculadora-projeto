@@ -1,23 +1,18 @@
 import 'package:flutter/material.dart';
 
-class ThemeCalculator extends StatefulWidget {
-  @override
-  _ThemeCalculatorState createState() => _ThemeCalculatorState();
-}
+class ThemeCalculator extends StatelessWidget {
+  final bool isDarkMode;
+  final VoidCallback toggleTheme;
 
-class _ThemeCalculatorState extends State<ThemeCalculator> {
-  bool isDarkMode = false;
+  const ThemeCalculator(
+      {super.key, required this.isDarkMode, required this.toggleTheme});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        setState(() {
-          isDarkMode = !isDarkMode;
-        });
-      },
+      onTap: toggleTheme,
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         width: 80,
         height: 40,
         decoration: BoxDecoration(
@@ -27,16 +22,16 @@ class _ThemeCalculatorState extends State<ThemeCalculator> {
         child: Stack(
           children: <Widget>[
             AnimatedPositioned(
-              duration: Duration(milliseconds: 300),
+              duration: const Duration(milliseconds: 300),
               curve: Curves.easeIn,
               top: 3,
               left: isDarkMode ? 30 : 0,
               right: isDarkMode ? 0 : 30,
               child: AnimatedSwitcher(
-                duration: Duration(milliseconds: 300),
+                duration: const Duration(milliseconds: 300),
                 child: isDarkMode
-                    ? Padding(
-                        padding: const EdgeInsets.all(4.0),
+                    ? const Padding(
+                        padding: EdgeInsets.all(4.0),
                         child: Center(
                           child: Icon(
                             Icons.nights_stay,
@@ -46,8 +41,8 @@ class _ThemeCalculatorState extends State<ThemeCalculator> {
                           ),
                         ),
                       )
-                    : Padding(
-                        padding: const EdgeInsets.all(4.0),
+                    : const Padding(
+                        padding: EdgeInsets.all(4.0),
                         child: Icon(
                           Icons.wb_sunny,
                           color: Colors.blue,

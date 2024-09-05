@@ -14,19 +14,31 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  bool isDarkMode = false;
+
+  void changeTheme() {
+    setState(() {
+      isDarkMode = !isDarkMode;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData.dark(),
-      home: Calculadora(),
+      theme: isDarkMode ? ThemeData.dark() : ThemeData.light(),
+      home: Calculadora(isDarkMode: isDarkMode, toggleTheme: changeTheme),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
 class Calculadora extends StatefulWidget {
-  const Calculadora({super.key});
+  final bool isDarkMode;
+  final VoidCallback toggleTheme;
+
+  const Calculadora(
+      {super.key, required this.isDarkMode, required this.toggleTheme});
 
   @override
   State<Calculadora> createState() => _CalculadoraState();
@@ -40,7 +52,7 @@ class _CalculadoraState extends State<Calculadora> {
         Expanded(
             flex: 1,
             child: Container(
-              color: Color(0xFF17171C),
+              color: widget.isDarkMode ? const Color(0xFF17171C) : Colors.white,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -50,15 +62,18 @@ class _CalculadoraState extends State<Calculadora> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(top: 40.0),
-                        child: ThemeCalculator(),
+                        child: ThemeCalculator(
+                          isDarkMode: widget.isDarkMode,
+                          toggleTheme: widget.toggleTheme,
+                        ),
                       )
                     ],
                   ),
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(16.0),
+                        padding: EdgeInsets.all(16.0),
                         child: FittedBox(
                           fit: BoxFit.scaleDown,
                           child: Text(
@@ -83,7 +98,9 @@ class _CalculadoraState extends State<Calculadora> {
                           child: Text(
                             '0',
                             style: TextStyle(
-                              color: Colors.white,
+                              color: widget.isDarkMode
+                                  ? Colors.white
+                                  : Colors.black,
                               fontSize: 48.0,
                               decoration: TextDecoration.none,
                             ),
@@ -98,67 +115,151 @@ class _CalculadoraState extends State<Calculadora> {
         Expanded(
             flex: 2,
             child: Container(
-              color: Color(0xFF17171C),
+              color: widget.isDarkMode ? const Color(0xFF17171C) : Colors.white,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Button(value: 'C', color: Color(0xFF4E505F)),
                       Button(
-                        value: Image.asset(
-                          'assets/images/value.png',
-                          width: 24,
-                          height: 24,
-                        ),
-                        color: Color(0xFF4E505F),
-                      ),
-                      Button(value: '%', color: Color(0xFF4E505F)),
-                      Button(value: '÷', color: Color(0xFF4B5EFC)),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Button(value: '7', color: Color(0xFF333640)),
-                      Button(value: '8', color: Color(0xFF333640)),
-                      Button(value: '9', color: Color(0xFF333640)),
-                      Button(value: 'x', color: Color(0xFF4B5EFC)),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Button(value: '4', color: Color(0xFF333640)),
-                      Button(value: '5', color: Color(0xFF333640)),
-                      Button(value: '6', color: Color(0xFF333640)),
-                      Button(value: '-', color: Color(0xFF4B5EFC)),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Button(value: '1', color: Color(0xFF333640)),
-                      Button(value: '2', color: Color(0xFF333640)),
-                      Button(value: '3', color: Color(0xFF333640)),
-                      Button(value: '+', color: Color(0xFF4B5EFC)),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Button(value: '.', color: Color(0xFF333640)),
-                      Button(value: '0', color: Color(0xFF333640)),
+                          value: 'C',
+                          color: widget.isDarkMode
+                              ? const Color(0xFF4E505F)
+                              : const Color(322323332),
+                          isDarkMode: widget.isDarkMode),
                       Button(
-                        value: Image.asset(
-                          'assets/images/delete.png',
-                          width: 24,
-                          height: 24,
-                        ),
-                        color: Color(0xFF333640),
-                      ),
-                      Button(value: '=', color: Color(0xFF4B5EFC)),
+                          value: Image.asset(
+                            'assets/images/value.png',
+                            width: 24,
+                            height: 24,
+                          ),
+                          color: widget.isDarkMode
+                              ? const Color(0xFF4E505F)
+                              : const Color(322323332),
+                          isDarkMode: widget.isDarkMode),
+                      Button(
+                          value: '%',
+                          color: widget.isDarkMode
+                              ? const Color(0xFF4E505F)
+                              : const Color(322323332),
+                          isDarkMode: widget.isDarkMode),
+                      Button(
+                          value: '÷',
+                          color: const Color(0xFF4B5EFC),
+                          isDarkMode: widget.isDarkMode),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Button(
+                          value: '7',
+                          color: widget.isDarkMode
+                              ? const Color(0xFF333640)
+                              : Colors.white,
+                          isDarkMode: widget.isDarkMode),
+                      Button(
+                          value: '8',
+                          color: widget.isDarkMode
+                              ? const Color(0xFF333640)
+                              : Colors.white,
+                          isDarkMode: widget.isDarkMode),
+                      Button(
+                          value: '9',
+                          color: widget.isDarkMode
+                              ? const Color(0xFF333640)
+                              : Colors.white,
+                          isDarkMode: widget.isDarkMode),
+                      Button(
+                          value: 'x',
+                          color: const Color(0xFF4B5EFC),
+                          isDarkMode: widget.isDarkMode),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Button(
+                          value: '4',
+                          color: widget.isDarkMode
+                              ? const Color(0xFF333640)
+                              : Colors.white,
+                          isDarkMode: widget.isDarkMode),
+                      Button(
+                          value: '5',
+                          color: widget.isDarkMode
+                              ? const Color(0xFF333640)
+                              : Colors.white,
+                          isDarkMode: widget.isDarkMode),
+                      Button(
+                          value: '6',
+                          color: widget.isDarkMode
+                              ? const Color(0xFF333640)
+                              : Colors.white,
+                          isDarkMode: widget.isDarkMode),
+                      Button(
+                          value: '-',
+                          color: const Color(0xFF4B5EFC),
+                          isDarkMode: widget.isDarkMode),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Button(
+                          value: '1',
+                          color: widget.isDarkMode
+                              ? const Color(0xFF333640)
+                              : Colors.white,
+                          isDarkMode: widget.isDarkMode),
+                      Button(
+                          value: '2',
+                          color: widget.isDarkMode
+                              ? const Color(0xFF333640)
+                              : Colors.white,
+                          isDarkMode: widget.isDarkMode),
+                      Button(
+                          value: '3',
+                          color: widget.isDarkMode
+                              ? const Color(0xFF333640)
+                              : Colors.white,
+                          isDarkMode: widget.isDarkMode),
+                      Button(
+                          value: '+',
+                          color: const Color(0xFF4B5EFC),
+                          isDarkMode: widget.isDarkMode),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Button(
+                          value: '.',
+                          color: widget.isDarkMode
+                              ? const Color(0xFF333640)
+                              : Colors.white,
+                          isDarkMode: widget.isDarkMode),
+                      Button(
+                          value: '0',
+                          color: widget.isDarkMode
+                              ? const Color(0xFF333640)
+                              : Colors.white,
+                          isDarkMode: widget.isDarkMode),
+                      Button(
+                          value: Image.asset(
+                            'assets/images/delete.png',
+                            width: 24,
+                            height: 24,
+                          ),
+                          color: widget.isDarkMode
+                              ? const Color(0xFF333640)
+                              : Colors.white,
+                          isDarkMode: widget.isDarkMode),
+                      Button(
+                          value: '=',
+                          color: const Color(0xFF4B5EFC),
+                          isDarkMode: widget.isDarkMode),
                     ],
                   ),
                 ],
