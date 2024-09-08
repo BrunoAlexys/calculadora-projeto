@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 
-class ThemeCalculator extends StatelessWidget {
-  final bool isDarkMode;
-  final VoidCallback toggleTheme;
+class TemaCalculadora extends StatelessWidget {
+  final bool modoEscuro;
+  final VoidCallback alternarTema;
 
-  const ThemeCalculator(
-      {super.key, required this.isDarkMode, required this.toggleTheme});
+  const TemaCalculadora(
+      {super.key, required this.modoEscuro, required this.alternarTema});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext contexto) {
     return GestureDetector(
-      onTap: toggleTheme,
+      onTap: alternarTema,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         width: 80,
         height: 40,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
-          color: isDarkMode ? Colors.grey[850] : Colors.white,
+          color: modoEscuro ? Colors.grey[850] : Colors.white,
         ),
         child: Stack(
           children: <Widget>[
@@ -25,11 +25,11 @@ class ThemeCalculator extends StatelessWidget {
               duration: const Duration(milliseconds: 300),
               curve: Curves.easeIn,
               top: 3,
-              left: isDarkMode ? 30 : 0,
-              right: isDarkMode ? 0 : 30,
+              left: modoEscuro ? 30 : 0,
+              right: modoEscuro ? 0 : 30,
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 300),
-                child: isDarkMode
+                child: modoEscuro
                     ? const Padding(
                         padding: EdgeInsets.all(4.0),
                         child: Center(
@@ -37,7 +37,7 @@ class ThemeCalculator extends StatelessWidget {
                             Icons.nights_stay,
                             color: Colors.blue,
                             size: 24,
-                            key: ValueKey('moon'),
+                            key: ValueKey('lua'),
                           ),
                         ),
                       )
@@ -47,7 +47,7 @@ class ThemeCalculator extends StatelessWidget {
                           Icons.wb_sunny,
                           color: Colors.blue,
                           size: 24,
-                          key: ValueKey('sun'),
+                          key: ValueKey('sol'),
                         ),
                       ),
               ),
